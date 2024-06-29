@@ -1,4 +1,5 @@
 /// <reference lib="deno.unstable" />
+import { CSGModelingObject } from "../islands/types.ts";
 import { ulid } from "$std/ulid/mod.ts";
 const MODEL_DATA_KEY = "Modeling_data" as const;
 const MODEL_INFO_KEY = "Modeling_info" as const;
@@ -40,9 +41,9 @@ export async function saveModel(
   return { id };
 }
 
-export async function getModel(id: string): Promise<{}> {
+export async function getModel(id: string): Promise<CSGModelingObject[]> {
   const kv = await Deno.openKv();
-  const result = await kv.get([MODEL_DATA_KEY, id]);
+  const result = await kv.get<CSGModelingObject[]>([MODEL_DATA_KEY, id]);
 
   return result.value!;
 }

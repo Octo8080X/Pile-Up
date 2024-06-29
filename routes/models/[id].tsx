@@ -1,7 +1,9 @@
 import { defineRoute } from "$fresh/server.ts";
 import { Head } from "$fresh/runtime.ts";
 import Viewer from "../../islands/Viewer.tsx";
-import { getModelInfo } from "../../utils/kvstorage.ts";
+import { getModel, getModelInfo } from "../../utils/kvstorage.ts";
+import { createSourceCode } from "../../utils/create_source_code.ts";
+import SourceCode from "../../islands/SourceCode.tsx";
 
 function TwitterShareLink({ linkUrl }: { linkUrl: string }) {
   return (
@@ -43,12 +45,14 @@ function TwitterShareLink({ linkUrl }: { linkUrl: string }) {
 }
 
 export default defineRoute(async (_req, ctx) => {
-  const result = await getModelInfo(ctx.params.id);
+  const resultInfo = await getModelInfo(ctx.params.id);
   const url = `https://pile-up.deno.dev/models/${ctx.params.id}`;
   const ogpURL = `${url}/ogp`;
-  // 改行のパーセントエンコードが必要
   const linkUrl =
-    `https://twitter.com/share?text=Create%20%60${result.title}%60%20at%20Pile-Up.%0A&hashtags=pileup,babylonjs&url=${url}`;
+    `https://twitter.com/share?text=Create%20%60${resultInfo.title}%60%20at%20Pile-Up.%0A&hashtags=pileup,babylonjs&url=${url}`;
+
+  const resultData = await getModel(ctx.params.id);
+  const sourceCode = createSourceCode(resultData);
 
   return (
     <>
@@ -57,22 +61,22 @@ export default defineRoute(async (_req, ctx) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@okutann88" />
-        <meta name="twitter:title" content={"[Pile-Up] " + result.title} />
+        <meta name="twitter:title" content={"[Pile-Up] " + resultInfo.title} />
         <meta
           name="twitter:description"
-          content={"Create `" + result.title + "` at Pile-Up "}
+          content={"Create `" + resultInfo.title + "` at Pile-Up "}
         />
         <meta
           name="twitter:image"
           content={ogpURL}
         />
-        <title>{`Pile-Up '${result.title}'`}</title>
+        <title>{`Pile-Up '${resultInfo.title}'`}</title>
       </Head>
-      <div class="px-4">
+      <div class="px-4 mb-4">
         <div class="flex justify-center">
           <div class="flex flex-col">
             <div class="text-2xl font-bold text-center mb-4">
-              <p>Work Name: 【{result.title}】</p>
+              <p>Work Name: 【{resultInfo.title}】</p>
             </div>
             <div class="mb-4">
               <Viewer modelId={ctx.params.id} />
@@ -82,6 +86,12 @@ export default defineRoute(async (_req, ctx) => {
             </div>
           </div>
         </div>
+      </div>
+      <div class="px-4">
+        <details>
+          <summary class="justify-center">Source Code</summary>
+          <SourceCode code={sourceCode} />
+        </details>
       </div>
     </>
   );

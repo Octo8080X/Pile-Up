@@ -17,6 +17,7 @@ import * as $Modeler_BabylonApp from "./islands/Modeler/BabylonApp.tsx";
 import * as $Modeler_BabylonEditApp from "./islands/Modeler/BabylonEditApp.ts";
 import * as $Modeler_BabylonResultApp from "./islands/Modeler/BabylonResultApp.ts";
 import * as $Search from "./islands/Search.tsx";
+import * as $SourceCode from "./islands/SourceCode.tsx";
 import * as $Viewer from "./islands/Viewer.tsx";
 import * as $Viewer_BabylonApp from "./islands/Viewer/BabylonApp.tsx";
 import * as $Viewer_BabylonViewerApp from "./islands/Viewer/BabylonViewerApp.ts";
@@ -42,6 +43,7 @@ const manifest = {
     "./islands/Modeler/BabylonEditApp.ts": $Modeler_BabylonEditApp,
     "./islands/Modeler/BabylonResultApp.ts": $Modeler_BabylonResultApp,
     "./islands/Search.tsx": $Search,
+    "./islands/SourceCode.tsx": $SourceCode,
     "./islands/Viewer.tsx": $Viewer,
     "./islands/Viewer/BabylonApp.tsx": $Viewer_BabylonApp,
     "./islands/Viewer/BabylonViewerApp.ts": $Viewer_BabylonViewerApp,
