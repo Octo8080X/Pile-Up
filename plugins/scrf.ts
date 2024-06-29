@@ -26,8 +26,6 @@ const isAllowedOrigin = (req: Request): boolean => {
     return false;
   }
 
-  console.log(origin)
-
   const allowOrigins = allowedOrigins();
   return allowOrigins.includes(origin);
 };
