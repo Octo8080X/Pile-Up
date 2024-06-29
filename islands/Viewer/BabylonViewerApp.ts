@@ -1,0 +1,132 @@
+import * as BABYLON from "npm:@babylonjs/core/index.js";
+import { CSGModelingObject } from "../types.ts";
+
+export function startBabylonViewerApp(
+  element: HTMLCanvasElement,
+  getModelingData: () => CSGModelingObject[],
+) {
+  element.id = `renderCanvas${(new Date()).getTime()}`;
+  element.style.width = "600px";
+  element.style.height = "500px";
+
+  const engine = new BABYLON.Engine(element, true, {
+    preserveDrawingBuffer: true,
+    stencil: true,
+  });
+
+  const scene = new BABYLON.Scene(engine);
+
+  const camera = new BABYLON.ArcRotateCamera(
+    "Camera",
+    (Math.PI * 60) / 180,
+    (Math.PI * 120) / 180,
+    -30,
+    BABYLON.Vector3.Zero(),
+    scene,
+  );
+  camera.setTarget(BABYLON.Vector3.Zero());
+  camera.attachControl(element, true);
+
+  new BABYLON.HemisphericLight(
+    "light",
+    new BABYLON.Vector3(0, 100, 0),
+    scene,
+  );
+
+  const baseMaterial = new BABYLON.StandardMaterial("baseMaterial");
+  baseMaterial.diffuseColor = new BABYLON.Color3(0.6, 0.6, 0.6);
+
+  let csgMesh: BABYLON.Mesh | null = null;
+
+  let beforeObjectPropertiesString: string = "";
+
+  setInterval(() => {
+    const data = getModelingData();
+
+    if (JSON.stringify(data) == beforeObjectPropertiesString) {
+      return;
+    }
+
+    beforeObjectPropertiesString = JSON.stringify(data);
+
+    if (csgMesh !== null) {
+      csgMesh.dispose();
+    }
+
+    if (data.length > 0) {
+      const meshs = data.map((obj) => {
+        let mesh: BABYLON.Mesh | null = null;
+        switch (obj.meshType) {
+          case "box":
+            mesh = BABYLON.MeshBuilder.CreateBox(obj.id, {}, scene);
+            break;
+          case "sphere":
+            mesh = BABYLON.MeshBuilder.CreateSphere(
+              obj.id,
+              { segments: 3 },
+              scene,
+            );
+            break;
+          case "cylinder":
+            mesh = BABYLON.MeshBuilder.CreateCylinder(obj.id, {}, scene);
+            break;
+          case "Torus":
+            mesh = BABYLON.MeshBuilder.CreateTorus(obj.id, {}, scene);
+            break;
+          case "capsule":
+            mesh = BABYLON.MeshBuilder.CreateCapsule(obj.id, {}, scene);
+            break;
+        }
+
+        if (mesh !== null) {
+          mesh.position = new BABYLON.Vector3(
+            obj.position.x,
+            obj.position.y,
+            obj.position.z,
+          );
+          mesh.rotationQuaternion = new BABYLON.Quaternion(
+            obj.rotationQ.x,
+            obj.rotationQ.y,
+            obj.rotationQ.z,
+            obj.rotationQ.w,
+          );
+          mesh.scaling = new BABYLON.Vector3(
+            obj.scale.x,
+            obj.scale.y,
+            obj.scale.z,
+          );
+        }
+
+        return mesh;
+      });
+
+      const subCSG = BABYLON.CSG.FromMesh(meshs[0]);
+
+      meshs.forEach((mesh, i) => {
+        if (i === 0) {
+          return;
+        }
+        if (mesh === null) {
+          return;
+        }
+        if (data[i] === null || data[i].csgType === null) {
+          return;
+        }
+
+        subCSG[`${data[i].csgType!}InPlace`](
+          BABYLON.CSG.FromMesh(mesh),
+        );
+      });
+
+      csgMesh = subCSG.toMesh("csg", undefined, scene, true);
+
+      meshs.forEach((mesh) => {
+        mesh.dispose();
+      });
+    }
+  }, 500);
+
+  engine.runRenderLoop(function () {
+    scene.render();
+  });
+}
