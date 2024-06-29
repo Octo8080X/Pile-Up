@@ -148,7 +148,7 @@ export default function BabylonAppLoader() {
         title: title,
         models: modelingData,
         image: modalImageDataRef.current,
-      },
+      }
     });
 
     const json = await result.json();
