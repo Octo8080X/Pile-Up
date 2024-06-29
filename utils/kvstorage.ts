@@ -115,29 +115,6 @@ export async function getRecentModelInfos(
   return result;
 }
 
-//export async function getModelInfos(id: string): Promise<{
-//  title: string;
-//  createdAt: string;
-//  colorCode: string;
-//}> {
-//  const kv = await Deno.openKv();
-//  const result = await kv.get<{
-//    title: string;
-//    createdAt: string;
-//    colorCode: string;
-//  }>([MODEL_INFO_KEY, id]);
-//
-//  if (!result || !result.value) {
-//    throw new Error("Modeling not found");
-//  }
-//
-//  return {
-//    title: result.value.title,
-//    createdAt: result.value.createdAt,
-//    colorCode: result.value.colorCode,
-//  };
-//}
-
 export async function setModelOgpImage(
   id: string,
   img: Uint8Array,
