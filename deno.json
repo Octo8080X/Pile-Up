@@ -31,10 +31,10 @@
     "tailwindcss": "npm:tailwindcss@3.4.1",
     "tailwindcss/": "npm:/tailwindcss@3.4.1/",
     "tailwindcss/plugin": "npm:/tailwindcss@3.4.1/plugin.js",
-    "daisy-ui": "npm:daisyui@latest",
+    "daisy-ui": "npm:daisyui@4.12.10",
     "hono": "npm:hono@4.4.9",
-    "@hono/zod-openapi": "npm:@hono/zod-openapi",
-    "@hono/swagger-ui": "npm:@hono/swagger-ui"
+    "@hono/zod-openapi": "npm:@hono/zod-openapi@0.0.1",
+    "babylon": "npm:@babylonjs"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

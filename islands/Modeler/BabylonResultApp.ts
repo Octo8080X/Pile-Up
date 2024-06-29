@@ -1,4 +1,4 @@
-import * as BABYLON from "npm:@babylonjs/core/index.js";
+import * as BABYLON from "babylon/core/index.js";
 import { CSGModelingObject } from "../types.ts";
 
 export function startBabylonResultApp(
