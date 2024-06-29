@@ -12,7 +12,7 @@ type ModelInfo = {
 
 export function Models({ modelInfos }: { modelInfos: ModelInfo[] }) {
   return (
-    <div className="flex flex-wrap gap-4 justify-center">
+    <div class="flex flex-wrap gap-4 justify-center">
       {modelInfos.map((modelInfo) => (
         <a href={modelInfo.url}>
           <div class="bg-neutral-content p-4 rounded-lg shadow-md text-base-100 min-w-[108px] max-w-[208px]">

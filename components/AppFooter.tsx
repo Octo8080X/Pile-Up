@@ -1,7 +1,7 @@
 export function AppFooter() {
   return (
     <footer class="footer mt-4 p-10 bg-neutral text-neutral-content static bottom-0">
-      <aside className="items-center">
+      <aside class="items-center">
         <p class="text-3xl">Pile-Up</p>
         <p>Copyright © 2024 - Octo 3.6</p>
       </aside>

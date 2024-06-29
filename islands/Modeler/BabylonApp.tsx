@@ -165,7 +165,7 @@ export default function BabylonAppLoader() {
           <canvas ref={canvasCSGRef} />
         </div>
 
-        <div class="mx-2 bg-neutral p-4 w-[580px]">
+        <div class="mx-2 bg-neutral p-4 w-full">
           <div>
             <select
               class="select select-bordered mr-2"
@@ -206,7 +206,7 @@ export default function BabylonAppLoader() {
               Add Object
             </button>
             <button
-              className="btn btn-outline btn-info"
+              class="btn btn-outline btn-info"
               onClick={openDialog}
               disabled={uiObjects.length == 0}
             >
@@ -216,7 +216,7 @@ export default function BabylonAppLoader() {
           <div class="divider"></div>
 
           <div>
-            <h3>操作ログ</h3>
+            <h3>Log</h3>
 
             <table class="table table-zebra">
               <thead>
@@ -276,13 +276,13 @@ export default function BabylonAppLoader() {
         </div>
       </div>
 
-      <dialog className="modal" ref={dialogRef}>
+      <dialog class="modal" ref={dialogRef}>
         {isDialogOpen && (
-          <div className="modal-box">
-            <h3 className="font-bold text-lg mx-auto">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg mx-auto">
               Please decide on a title.
             </h3>
-            <div className="modal-action">
+            <div class="modal-action">
               <div class="grid grid-flow-row auto-rows-max mx-auto">
                 {modalImageDataRef.current && (
                   <img src={modalImageDataRef.current} />

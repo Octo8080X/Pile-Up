@@ -39,10 +39,10 @@ export default function Search({ keyword }: { keyword: string }) {
         >
           <div class="flex">
             <div class="w-full">
-              <label className="input input-bordered flex items-center gap-2">
+              <label class="input input-bordered flex items-center gap-2">
                 <input
                   type="text"
-                  className="grow"
+                  class="grow"
                   placeholder="Search"
                   onChange={(e: any) => setQ(e?.target?.value)}
                 />

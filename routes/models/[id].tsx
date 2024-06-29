@@ -22,6 +22,7 @@ export default defineRoute(async (_req, ctx) => {
           name="twitter:image"
           content={`https://pile-up.deno.dev/models/${ctx.params.id}/ogp`}
         />
+        <title>{`Pile-Up '${result.title}'`}</title>
       </Head>
       <div class="px-4">
         <div class="flex justify-center">
