@@ -9,19 +9,19 @@ export default defineRoute(async (_req, ctx) => {
   return (
     <>
       <Head>
-          <meta charset="utf-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:site" content="@okutann88" />
-          <meta name="twitter:title" content={"[Pile-Up] " + result.title} />
-          <meta
-            name="twitter:description"
-            content={"Create `"+ result.title + "` at Pile-Up " }
-          />
-          <meta
-            name="twitter:image"
-            content={`https://pile-up.deno.dev/models/${ctx.params.id}/ogp`}
-          />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@okutann88" />
+        <meta name="twitter:title" content={"[Pile-Up] " + result.title} />
+        <meta
+          name="twitter:description"
+          content={"Create `" + result.title + "` at Pile-Up "}
+        />
+        <meta
+          name="twitter:image"
+          content={`https://pile-up.deno.dev/models/${ctx.params.id}/ogp`}
+        />
       </Head>
       <div class="px-4">
         <div class="flex justify-center">

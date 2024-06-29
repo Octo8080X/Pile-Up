@@ -1,6 +1,4 @@
-import {
-  type Plugin,
-} from "$fresh/server.ts";
+import { type Plugin } from "$fresh/server.ts";
 
 import { FreshContext } from "$fresh/server.ts";
 import { CONSTS } from "../utils/consts.ts";
@@ -45,17 +43,16 @@ export async function csrfHandler(
   return await ctx.next();
 }
 
-
-export function getCsrfPlugin():Plugin {
+export function getCsrfPlugin(): Plugin {
   return {
     name: "csrf",
     middlewares: [
-        {
-          middleware: {
-            handler: csrfHandler
-          },
-          path: "/" 
-        }
-    ]
+      {
+        middleware: {
+          handler: csrfHandler,
+        },
+        path: "/",
+      },
+    ],
   };
 }

@@ -20,14 +20,12 @@ const fontBufferArray = new Uint8Array(
 export async function createOgp(id: string) {
   const info = await getModelInfo(id);
 
-  const singleByteChars =   info.title.match(/[ -~]/g) || [];
+  const singleByteChars = info.title.match(/[ -~]/g) || [];
   console.log(`[INFO] singleByteChars: ${singleByteChars.length}`);
 
-  const titleLength = info.title.length*2 - singleByteChars.length
+  const titleLength = info.title.length * 2 - singleByteChars.length;
 
-  const title = titleLength > 10
-    ? info.title.slice(0, 8) + "..."
-    : info.title;
+  const title = titleLength > 10 ? info.title.slice(0, 8) + "..." : info.title;
 
   console.log(`[INFO] title: ${title}`);
 
@@ -74,7 +72,8 @@ export async function createOgp(id: string) {
       >
         <img
           src={info.image}
-          width={600} height={600}
+          width={600}
+          height={600}
         />
       </div>
 

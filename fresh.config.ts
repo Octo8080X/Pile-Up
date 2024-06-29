@@ -5,6 +5,6 @@ import { getCsrfPlugin } from "./plugins/scrf.ts";
 export default defineConfig({
   plugins: [
     getCsrfPlugin(),
-    tailwind()
+    tailwind(),
   ],
 });

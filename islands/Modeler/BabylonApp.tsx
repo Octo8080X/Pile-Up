@@ -131,7 +131,7 @@ export default function BabylonAppLoader() {
     if (title == "") {
       titleError = true;
     }
-    if ( title.length < 2 || 30 < title.length) {
+    if (title.length < 2 || 30 < title.length) {
       titleError = true;
     }
     if (titleError) {
@@ -148,7 +148,7 @@ export default function BabylonAppLoader() {
         title: title,
         models: modelingData,
         image: modalImageDataRef.current,
-      }
+      },
     });
 
     const json = await result.json();
@@ -306,8 +306,17 @@ export default function BabylonAppLoader() {
                   </div>
                 </div>
                 <div class="grid grid-flow-col auto-col-max  grid-cols-1 gap-3 mx-auto mb-2">
-                  <button class="btn btn-primary" onClick={save} disabled={link != ""}>SAVE</button>
-                  <button class="btn btn-warning btn-outline" onClick={closeDialog}>
+                  <button
+                    class="btn btn-primary"
+                    onClick={save}
+                    disabled={link != ""}
+                  >
+                    SAVE
+                  </button>
+                  <button
+                    class="btn btn-warning btn-outline"
+                    onClick={closeDialog}
+                  >
                     CLOSE
                   </button>
                 </div>
