@@ -9,6 +9,7 @@ import * as $api_path_ from "./routes/api/[...path].ts";
 import * as $conditions from "./routes/conditions.tsx";
 import * as $index from "./routes/index.tsx";
 import * as $models_id_ from "./routes/models/[id].tsx";
+import * as $models_id_ogp from "./routes/models/[id]/ogp.tsx";
 import * as $new from "./routes/new.tsx";
 import * as $search from "./routes/search.tsx";
 import * as $Modeler from "./islands/Modeler.tsx";
@@ -31,6 +32,7 @@ const manifest = {
     "./routes/conditions.tsx": $conditions,
     "./routes/index.tsx": $index,
     "./routes/models/[id].tsx": $models_id_,
+    "./routes/models/[id]/ogp.tsx": $models_id_ogp,
     "./routes/new.tsx": $new,
     "./routes/search.tsx": $search,
   },

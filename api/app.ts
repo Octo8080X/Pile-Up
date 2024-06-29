@@ -1,7 +1,7 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
 import {
   getModel,
-  getModelInfos,
+  getModelInfo,
   saveModel,
   searchModels,
 } from "../utils/kvstorage.ts";
@@ -11,7 +11,7 @@ import {
   getModelsSearchRoute,
   postModelsRoute,
 } from "../utils/api_definition.ts";
-import { CONSTS } from "../utils/consts.ts";
+import { callCreateOgp } from "../utils/queues.ts";
 
 const app = new OpenAPIHono();
 
@@ -20,6 +20,8 @@ export const appRoutes = app
   .openapi(postModelsRoute, async (c) => {
     const json = await c.req.json();
     const result = await saveModel(json.title, json.models, json.image);
+
+    await callCreateOgp(result.id);
 
     return c.json({ message: "OK", url: `/models/${result.id}` });
   })
@@ -33,7 +35,7 @@ export const appRoutes = app
   // GET /api/models/:id/info
   .openapi(getModelsInfoRoute, async (c) => {
     const id = c.req.param("id");
-    const result = await getModelInfos(id);
+    const result = await getModelInfo(id);
 
     return c.json(result);
   })

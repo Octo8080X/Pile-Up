@@ -2,6 +2,7 @@
 import { ulid } from "$std/ulid/mod.ts";
 const MODEL_DATA_KEY = "Modeling_data" as const;
 const MODEL_INFO_KEY = "Modeling_info" as const;
+const MODEL_OGP_IMAGE_KEY = "Modeling_ogp_image" as const;
 
 export async function saveModel(
   title: string,
@@ -114,25 +115,48 @@ export async function getRecentModelInfos(
   return result;
 }
 
-export async function getModelInfos(id: string): Promise<{
-  title: string;
-  createdAt: string;
-  colorCode: string;
-}> {
+//export async function getModelInfos(id: string): Promise<{
+//  title: string;
+//  createdAt: string;
+//  colorCode: string;
+//}> {
+//  const kv = await Deno.openKv();
+//  const result = await kv.get<{
+//    title: string;
+//    createdAt: string;
+//    colorCode: string;
+//  }>([MODEL_INFO_KEY, id]);
+//
+//  if (!result || !result.value) {
+//    throw new Error("Modeling not found");
+//  }
+//
+//  return {
+//    title: result.value.title,
+//    createdAt: result.value.createdAt,
+//    colorCode: result.value.colorCode,
+//  };
+//}
+
+export async function setModelOgpImage(
+  id: string,
+  img: Uint8Array,
+): Promise<boolean> {
   const kv = await Deno.openKv();
-  const result = await kv.get<{
-    title: string;
-    createdAt: string;
-    colorCode: string;
-  }>([MODEL_INFO_KEY, id]);
+  const result = await kv.set([MODEL_OGP_IMAGE_KEY, id], img);
+
+  return result.ok;
+}
+
+export async function getModelOgpImage(
+  id: string,
+): Promise<ArrayBuffer> {
+  const kv = await Deno.openKv();
+  const result = await kv.get<ArrayBuffer>([MODEL_OGP_IMAGE_KEY, id]);
 
   if (!result || !result.value) {
-    throw new Error("Modeling not found");
+    throw new Error("image not found");
   }
 
-  return {
-    title: result.value.title,
-    createdAt: result.value.createdAt,
-    colorCode: result.value.colorCode,
-  };
+  return result.value;
 }
