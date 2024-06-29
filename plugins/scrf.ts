@@ -1,7 +1,11 @@
+import {
+  type Plugin,
+} from "$fresh/server.ts";
+
 import { FreshContext } from "$fresh/server.ts";
 import { CONSTS } from "../utils/consts.ts";
 
-const unCaeckedMethods = /^(GET|HEAD|OPTIONS)/;
+const unCheckedMethods = /^(GET|HEAD|OPTIONS)/;
 const isAllowedContentType =
   /^\b(application\/json|application\/x-www-form-urlencoded|multipart\/form-data|text\/plain)\b/;
 
@@ -31,7 +35,7 @@ export async function csrfHandler(
   ctx: FreshContext,
 ) {
   if (
-    !unCaeckedMethods.test(req.method) &&
+    !unCheckedMethods.test(req.method) &&
     isAllowedContentType.test(req.headers.get("content-type") || "") &&
     !isAllowedOrigin(req)
   ) {
@@ -39,4 +43,19 @@ export async function csrfHandler(
   }
 
   return await ctx.next();
+}
+
+
+export function getCsrfPlugin():Plugin {
+  return {
+    name: "csrf",
+    middlewares: [
+        {
+          middleware: {
+            handler: csrfHandler
+          },
+          path: "/" 
+        }
+    ]
+  };
 }

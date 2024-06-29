@@ -131,7 +131,7 @@ export default function BabylonAppLoader() {
     if (title == "") {
       titleError = true;
     }
-    if (title.length < 3 || title.length > 30) {
+    if ( title.length < 2 || 30 < title.length) {
       titleError = true;
     }
     if (titleError) {
@@ -305,15 +305,15 @@ export default function BabylonAppLoader() {
                     </span>
                   </div>
                 </div>
-                <div class="grid grid-flow-col auto-col-max  grid-cols-1 gap-3 mx-auto">
-                  <button class="btn btn-primary" onClick={save}>SAVE</button>
-                  <button class="btn" onClick={closeDialog}>
+                <div class="grid grid-flow-col auto-col-max  grid-cols-1 gap-3 mx-auto mb-2">
+                  <button class="btn btn-primary" onClick={save} disabled={link != ""}>SAVE</button>
+                  <button class="btn btn-warning btn-outline" onClick={closeDialog}>
                     CLOSE
                   </button>
                 </div>
-                <div>
+                <div class="grid grid-flow-col auto-col-max mx-auto grid-cols-1 gap-3">
                   {link && (
-                    <a href={link} class="text-primary">
+                    <a href={link} class="font-bold btn btn-info btn-outline">
                       <p>Success, Go Viewer!</p>
                     </a>
                   )}
