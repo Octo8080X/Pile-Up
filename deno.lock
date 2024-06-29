@@ -8,11 +8,11 @@
       "jsr:@std/jsonc@0.213": "jsr:@std/jsonc@0.213.1",
       "jsr:@std/path@0.213": "jsr:@std/path@0.213.1",
       "jsr:@std/ulid@^0.224.1": "jsr:@std/ulid@0.224.1",
-      "npm:@babylonjs/core": "npm:@babylonjs/core@7.13.0",
-      "npm:@hono/zod-openapi": "npm:@hono/zod-openapi@0.14.5_hono@4.4.9_zod@3.23.8",
+      "npm:@babylonjs/core": "npm:@babylonjs/core@7.13.1",
+      "npm:@hono/zod-openapi@0.14.5": "npm:@hono/zod-openapi@0.14.5_hono@4.4.9_zod@3.23.8",
       "npm:autoprefixer@10.4.17": "npm:autoprefixer@10.4.17_postcss@8.4.35",
       "npm:cssnano@6.0.3": "npm:cssnano@6.0.3_postcss@8.4.35",
-      "npm:daisyui@latest": "npm:daisyui@4.9.0_postcss@8.4.35",
+      "npm:daisyui@4.12.10": "npm:daisyui@4.12.10_postcss@8.4.35",
       "npm:hono@4.4.9": "npm:hono@4.4.9",
       "npm:postcss@8.4.35": "npm:postcss@8.4.35",
       "npm:tailwindcss@3.4.1": "npm:tailwindcss@3.4.1_postcss@8.4.35"
@@ -60,8 +60,8 @@
           "zod": "zod@3.23.8"
         }
       },
-      "@babylonjs/core@7.13.0": {
-        "integrity": "sha512-1BlktvAfJrfVvKci6jHzu3YrNQHKdDSmqsrHSDlhHXzTqHunHZpI1CtdPi+TyPtPcpeIQhc82Mnl/7jXdh+j7A==",
+      "@babylonjs/core@7.13.1": {
+        "integrity": "sha512-limlsRIhRBH9xsuUNsy9xAyi0jhfQxfvhlMzMjFK3Ugq4c7joYpoZMkQU038esOQ3aq3q8VPv1+CshE3NASEMQ==",
         "dependencies": {}
       },
       "@hono/zod-openapi@0.14.5_hono@4.4.9_zod@3.23.8": {
@@ -387,8 +387,8 @@
         "integrity": "sha512-pHJg+jbuFsCjz9iclQBqyL3B2HLCBF71BwVNujUYEvCeQMvV97R59MNK3R2+jgJ3a1fcZgI9B3vYgz8lzr/BFQ==",
         "dependencies": {}
       },
-      "daisyui@4.9.0_postcss@8.4.35": {
-        "integrity": "sha512-9JsDx4E+30kPxThE+6yEwQokqg1957uwTx/skP2RE98fG6Ten6U+S9YXeQg1a3CI958aF5aOb0oEA+KZFfrZUA==",
+      "daisyui@4.12.10_postcss@8.4.35": {
+        "integrity": "sha512-jp1RAuzbHhGdXmn957Z2XsTZStXGHzFfF0FgIOZj3Wv9sH7OZgLfXTRZNfKVYxltGUOBsG1kbWAdF5SrqjebvA==",
         "dependencies": {
           "css-selector-tokenizer": "css-selector-tokenizer@0.8.0",
           "culori": "culori@3.3.0",
@@ -597,8 +597,8 @@
         "integrity": "sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==",
         "dependencies": {}
       },
-      "lru-cache@10.2.2": {
-        "integrity": "sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==",
+      "lru-cache@10.3.0": {
+        "integrity": "sha512-CQl19J/g+Hbjbv4Y3mFNNXFEL/5t/KCg8POCuUqd4rMKjGG+j1ybER83hxV58zL+dFI1PTkt3GNFSHRt+d8qEQ==",
         "dependencies": {}
       },
       "mdn-data@2.0.28": {
@@ -689,7 +689,7 @@
       "path-scurry@1.11.1": {
         "integrity": "sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==",
         "dependencies": {
-          "lru-cache": "lru-cache@10.2.2",
+          "lru-cache": "lru-cache@10.3.0",
           "minipass": "minipass@7.1.2"
         }
       },
@@ -1524,9 +1524,8 @@
   "workspace": {
     "dependencies": [
       "jsr:@std/ulid@^0.224.1",
-      "npm:@hono/swagger-ui",
-      "npm:@hono/zod-openapi",
-      "npm:daisyui@latest",
+      "npm:@hono/zod-openapi@0.14.5",
+      "npm:daisyui@4.12.10",
       "npm:hono@4.4.9",
       "npm:tailwindcss@3.4.1"
     ]

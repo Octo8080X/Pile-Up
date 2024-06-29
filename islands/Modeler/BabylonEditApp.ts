@@ -1,4 +1,4 @@
-import * as BABYLON from "babylonjs/core/index.js";
+import * as BABYLON from "babylon/core/index.js";
 import { CSGModelingObject, CSGModelingUpdateProperty } from "../types.ts";
 
 export function startBabylonEditApp(
