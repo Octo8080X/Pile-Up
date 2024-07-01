@@ -70,13 +70,19 @@ export function startBabylonResultApp(
             );
             break;
           case "cylinder":
-            mesh = BABYLON.MeshBuilder.CreateCylinder(obj.id, {}, scene);
+            mesh = BABYLON.MeshBuilder.CreateCylinder(obj.id, {
+              tessellation: 6,
+            }, scene);
             break;
           case "Torus":
-            mesh = BABYLON.MeshBuilder.CreateTorus(obj.id, {}, scene);
+            mesh = BABYLON.MeshBuilder.CreateTorus(obj.id, {
+              tessellation: 6,
+            }, scene);
             break;
           case "capsule":
-            mesh = BABYLON.MeshBuilder.CreateCapsule(obj.id, {}, scene);
+            mesh = BABYLON.MeshBuilder.CreateCapsule(obj.id, {
+              tessellation: 6,
+            }, scene);
             break;
         }
 
@@ -114,6 +120,7 @@ export function startBabylonResultApp(
         if (data[i] === null || data[i].csgType === null) {
           return;
         }
+        console.log("A", i);
 
         subCSG[`${data[i].csgType!}InPlace`](
           BABYLON.CSG.FromMesh(mesh),

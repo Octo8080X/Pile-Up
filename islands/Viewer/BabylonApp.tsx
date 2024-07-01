@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "preact/hooks";
+import { useEffect, useRef, useState } from "preact/hooks";
 import { startBabylonViewerApp } from "./BabylonViewerApp.ts";
 import { CSGModelingObject } from "../types.ts";
 
@@ -7,13 +7,20 @@ import { AppRoutesType } from "../../api/app.ts";
 
 const client = hc<AppRoutesType>("/");
 
-export default function BabylonAppLoader(props: { modelId: string }) {
+export default function BabylonAppLoader(
+  props: { modelId: string; image: string },
+) {
   const canvasViewerRef = useRef(null);
   const objects = useRef<CSGModelingObject[]>([]);
+  const [isRender, setIsRender] = useState(false);
 
   const getModelingData = () => {
     return objects.current;
   };
+
+  function callRender() {
+    setIsRender(true);
+  }
 
   useEffect(() => {
     const call = async () => {
@@ -37,12 +44,21 @@ export default function BabylonAppLoader(props: { modelId: string }) {
       return;
     }
 
-    startBabylonViewerApp(canvasViewerElement, getModelingData);
+    startBabylonViewerApp(canvasViewerElement, getModelingData, callRender);
   }, []);
 
   return (
     <>
-      <canvas ref={canvasViewerRef} />
+      <div class={"absolute " + (isRender ? "hidden" : "")}>
+        <span
+          class={"absolute loading loading-spinner loading-lg text-warning top-[280px] left-[280px]"}
+        >
+        </span>
+        <img src={props.image} width="600px" height="600px">
+        </img>
+      </div>
+
+      <canvas ref={canvasViewerRef} width="600px" height="600px" />
     </>
   );
 }

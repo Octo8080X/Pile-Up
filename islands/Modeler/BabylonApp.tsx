@@ -160,9 +160,9 @@ export default function BabylonAppLoader() {
     <>
       <div class="grid grid-cols-2 gap-1 mb-2">
         <div class="mx-2">
-          <canvas ref={canvasRef} />
+          <canvas ref={canvasRef} width="500px" height="500px" />
 
-          <canvas ref={canvasCSGRef} />
+          <canvas ref={canvasCSGRef} width="500px" height="500px" />
         </div>
 
         <div class="mx-2 bg-neutral p-4 w-full">

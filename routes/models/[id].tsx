@@ -79,7 +79,7 @@ export default defineRoute(async (_req, ctx) => {
               <p>Work Name: 【{resultInfo.title}】</p>
             </div>
             <div class="mb-4">
-              <Viewer modelId={ctx.params.id} />
+              <Viewer modelId={ctx.params.id} image={resultInfo.image} />
             </div>
             <div class="flex flex-row-reverse">
               <TwitterShareLink linkUrl={linkUrl} />

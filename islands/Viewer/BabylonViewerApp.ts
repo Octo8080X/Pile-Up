@@ -4,10 +4,11 @@ import { CSGModelingObject } from "../types.ts";
 export function startBabylonViewerApp(
   element: HTMLCanvasElement,
   getModelingData: () => CSGModelingObject[],
+  setIsRender: () => void,
 ) {
   element.id = `renderCanvas${(new Date()).getTime()}`;
   element.style.width = "600px";
-  element.style.height = "500px";
+  element.style.height = "600px";
 
   const engine = new BABYLON.Engine(element, true, {
     preserveDrawingBuffer: true,
@@ -36,7 +37,7 @@ export function startBabylonViewerApp(
   const baseMaterial = new BABYLON.StandardMaterial("baseMaterial");
   baseMaterial.diffuseColor = new BABYLON.Color3(0.6, 0.6, 0.6);
 
-  let isRender = false;
+  let isRenderObject = false;
 
   function renderObject() {
     const data = getModelingData();
@@ -59,13 +60,19 @@ export function startBabylonViewerApp(
           );
           break;
         case "cylinder":
-          mesh = BABYLON.MeshBuilder.CreateCylinder(obj.id, {}, scene);
+          mesh = BABYLON.MeshBuilder.CreateCylinder(obj.id, {
+            tessellation: 6,
+          }, scene);
           break;
         case "Torus":
-          mesh = BABYLON.MeshBuilder.CreateTorus(obj.id, {}, scene);
+          mesh = BABYLON.MeshBuilder.CreateTorus(obj.id, {
+            tessellation: 6,
+          }, scene);
           break;
         case "capsule":
-          mesh = BABYLON.MeshBuilder.CreateCapsule(obj.id, {}, scene);
+          mesh = BABYLON.MeshBuilder.CreateCapsule(obj.id, {
+            tessellation: 6,
+          }, scene);
           break;
       }
 
@@ -114,11 +121,12 @@ export function startBabylonViewerApp(
     meshs.forEach((mesh) => {
       mesh.dispose();
     });
-    isRender = true;
+    isRenderObject = true;
+    setIsRender();
   }
 
   engine.runRenderLoop(function () {
-    if (!isRender) {
+    if (!isRenderObject) {
       renderObject();
     }
 

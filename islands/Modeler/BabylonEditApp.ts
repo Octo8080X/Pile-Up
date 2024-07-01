@@ -78,18 +78,24 @@ export function startBabylonEditApp(
           case "sphere":
             mesh = BABYLON.MeshBuilder.CreateSphere(
               obj.id,
-              { segments: 10 },
+              { segments: 3 },
               scene,
             );
             break;
           case "cylinder":
-            mesh = BABYLON.MeshBuilder.CreateCylinder(obj.id, {}, scene);
+            mesh = BABYLON.MeshBuilder.CreateCylinder(obj.id, {
+              tessellation: 6,
+            }, scene);
             break;
           case "Torus":
-            mesh = BABYLON.MeshBuilder.CreateTorus(obj.id, {}, scene);
+            mesh = BABYLON.MeshBuilder.CreateTorus(obj.id, {
+              tessellation: 6,
+            }, scene);
             break;
           case "capsule":
-            mesh = BABYLON.MeshBuilder.CreateCapsule(obj.id, {}, scene);
+            mesh = BABYLON.MeshBuilder.CreateCapsule(obj.id, {
+              tessellation: 6,
+            }, scene);
             break;
         }
         if (mesh !== null) {
