@@ -180,7 +180,6 @@ export default function BabylonAppLoader() {
               <option value="sphere">Sphere</option>
               <option value="cylinder">Cylinder</option>
               <option value="Torus">Torus</option>
-              <option value="capsule">Capsule</option>
             </select>
 
             <select
@@ -194,7 +193,6 @@ export default function BabylonAppLoader() {
               disabled={uiObjects.length === 0}
             >
               <option value="subtract">Subtract</option>
-              <option value="inverse">Inverse</option>
               <option value="union">Union</option>
               <option value="intersect">Intersect</option>
             </select>

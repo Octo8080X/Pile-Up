@@ -92,11 +92,6 @@ export function startBabylonEditApp(
               tessellation: 6,
             }, scene);
             break;
-          case "capsule":
-            mesh = BABYLON.MeshBuilder.CreateCapsule(obj.id, {
-              tessellation: 6,
-            }, scene);
-            break;
         }
         if (mesh !== null) {
           mesh.position = new BABYLON.Vector3(

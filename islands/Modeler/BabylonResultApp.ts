@@ -65,6 +65,7 @@ export function startBabylonResultApp(
     }
 
     if (data.length > 0) {
+
       const meshs = data.map((obj) => {
         let mesh: BABYLON.Mesh | null = null;
         switch (obj.meshType) {
@@ -85,11 +86,6 @@ export function startBabylonResultApp(
             break;
           case "Torus":
             mesh = BABYLON.MeshBuilder.CreateTorus(obj.id, {
-              tessellation: 6,
-            }, scene);
-            break;
-          case "capsule":
-            mesh = BABYLON.MeshBuilder.CreateCapsule(obj.id, {
               tessellation: 6,
             }, scene);
             break;
@@ -117,37 +113,44 @@ export function startBabylonResultApp(
         return mesh;
       });
 
-      const subCSG = BABYLON.CSG.FromMesh(meshs[0]);
 
-      meshs.forEach((mesh, i) => {
-        if (i === 0) {
-          return;
-        }
-        if (mesh === null) {
-          return;
-        }
-        if (data[i] === null || data[i].csgType === null) {
-          return;
-        }
+      try{
+        const subCSG = BABYLON.CSG.FromMesh(meshs[0]);
+  
+        meshs.forEach((mesh, i) => {
+          if (i === 0) {
+            return;
+          }
+          if (mesh === null) {
+            return;
+          }
+          if (data[i] === null || data[i].csgType === null) {
+            return;
+          }
+  
+          subCSG[`${data[i].csgType!}InPlace`](
+            BABYLON.CSG.FromMesh(mesh),
+          );
+        });
+  
+        csgMesh = subCSG.toMesh("csg", undefined, scene, true);
+        meshs.forEach((mesh) => {
+          mesh.dispose();
+        });       
 
-        subCSG[`${data[i].csgType!}InPlace`](
-          BABYLON.CSG.FromMesh(mesh),
-        );
-      });
-
-      csgMesh = subCSG.toMesh("csg", undefined, scene, true);
-
-      meshs.forEach((mesh) => {
-        mesh.dispose();
-      });
+      }catch(e){
+        console.error(e);
+      }finally{
+        meshs.forEach((mesh) => {
+          mesh.dispose();
+        });       
+      }
     }
     islenderingModel = false;
   }, 500);
 
   async function screenShot() {
     const screenShot = element.toDataURL("image/png");
-
-    // 画像を300*200にリサイズ
     const canvas = document.createElement("canvas");
     canvas.width = 200;
     canvas.height = 200;
