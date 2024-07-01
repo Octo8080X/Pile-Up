@@ -1,6 +1,6 @@
 import satori from "npm:satori";
 import * as svg2png from "npm:svg2png-wasm";
-import { optimise } from '@jsquash/oxipng';
+import { optimise } from "@jsquash/oxipng";
 
 await svg2png.initialize(
   await fetch("https://unpkg.com/svg2png-wasm/svg2png_wasm_bg.wasm"),

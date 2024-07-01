@@ -52,8 +52,19 @@ export function AppHeader(props: AppHeaderProps) {
         </ul>
       </div>
       <div class="navbar-end">
-        {showBuildingShortCut &&
-          <a class="btn btn-neutral" href="/new">Building</a>}
+        {showBuildingShortCut && (
+          <>
+            <a
+              class="btn btn-neutral mr-2"
+              href="https://twitter.com/share?text=%60Pile-Up%60+is+simple+Mesh+Editor+on+Babylon.js.%0A&hashtags=pileup,babylonjs&url=https://pile-up.deno.dev"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
+              Share
+            </a>
+            <a class="btn btn-neutral" href="/new">Building</a>
+          </>
+        )}
       </div>
     </div>
   );

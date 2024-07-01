@@ -42,11 +42,10 @@ export function startBabylonResultApp(
 
   let beforeObjectPropertiesString: string = "";
 
-
   let islenderingModel = false;
   setInterval(() => {
     console.log("rendering");
-    if(islenderingModel){
+    if (islenderingModel) {
       return;
     }
     islenderingModel = true;
@@ -65,7 +64,6 @@ export function startBabylonResultApp(
     }
 
     if (data.length > 0) {
-
       const meshs = data.map((obj) => {
         let mesh: BABYLON.Mesh | null = null;
         switch (obj.meshType) {
@@ -113,10 +111,9 @@ export function startBabylonResultApp(
         return mesh;
       });
 
-
-      try{
+      try {
         const subCSG = BABYLON.CSG.FromMesh(meshs[0]);
-  
+
         meshs.forEach((mesh, i) => {
           if (i === 0) {
             return;
@@ -127,23 +124,22 @@ export function startBabylonResultApp(
           if (data[i] === null || data[i].csgType === null) {
             return;
           }
-  
+
           subCSG[`${data[i].csgType!}InPlace`](
             BABYLON.CSG.FromMesh(mesh),
           );
         });
-  
+
         csgMesh = subCSG.toMesh("csg", undefined, scene, true);
         meshs.forEach((mesh) => {
           mesh.dispose();
-        });       
-
-      }catch(e){
+        });
+      } catch (e) {
         console.error(e);
-      }finally{
+      } finally {
         meshs.forEach((mesh) => {
           mesh.dispose();
-        });       
+        });
       }
     }
     islenderingModel = false;
