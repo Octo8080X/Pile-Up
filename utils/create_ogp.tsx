@@ -1,5 +1,6 @@
 import satori from "npm:satori";
 import * as svg2png from "npm:svg2png-wasm";
+import { optimise } from '@jsquash/oxipng';
 
 await svg2png.initialize(
   await fetch("https://unpkg.com/svg2png-wasm/svg2png_wasm_bg.wasm"),
@@ -125,6 +126,7 @@ export async function createOgp(id: string) {
   };
 
   const png = await svg2png.svg2png(svg, convert_options);
+  const oxipng = await optimise(png, { level: 3 });
 
-  setModelOgpImage(id, png);
+  setModelOgpImage(id, oxipng);
 }
