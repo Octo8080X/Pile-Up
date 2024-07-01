@@ -44,6 +44,7 @@ export default function Search({ keyword }: { keyword: string }) {
                   type="text"
                   class="grow"
                   placeholder="Search"
+                  value={q}
                   onChange={(e: any) => setQ(e?.target?.value)}
                 />
               </label>
