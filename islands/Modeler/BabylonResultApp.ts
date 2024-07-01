@@ -42,10 +42,19 @@ export function startBabylonResultApp(
 
   let beforeObjectPropertiesString: string = "";
 
+
+  let islenderingModel = false;
   setInterval(() => {
+    console.log("rendering");
+    if(islenderingModel){
+      return;
+    }
+    islenderingModel = true;
+
     const data = getModelingData();
 
     if (JSON.stringify(data) == beforeObjectPropertiesString) {
+      islenderingModel = false;
       return;
     }
 
@@ -120,7 +129,6 @@ export function startBabylonResultApp(
         if (data[i] === null || data[i].csgType === null) {
           return;
         }
-        console.log("A", i);
 
         subCSG[`${data[i].csgType!}InPlace`](
           BABYLON.CSG.FromMesh(mesh),
@@ -133,6 +141,7 @@ export function startBabylonResultApp(
         mesh.dispose();
       });
     }
+    islenderingModel = false;
   }, 500);
 
   async function screenShot() {
