@@ -49,7 +49,7 @@ export function AppFooter() {
           class="link link-hover"
           target="_brank"
           rel="noopener"
-          href="https://github.com/Octo8080X/"
+          href="https://github.com/Octo8080X/Pile-Up"
         >
           Octo8080X/pile-up
         </a>
