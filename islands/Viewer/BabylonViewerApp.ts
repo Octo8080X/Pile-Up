@@ -1,5 +1,5 @@
 import * as BABYLON from "babylon/core/index.js";
-import { CSGModelingObject } from "../types.ts";
+import { CSGModelingObject } from "../../types/types.ts";
 
 export function startBabylonViewerApp(
   element: HTMLCanvasElement,

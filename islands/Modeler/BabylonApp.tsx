@@ -8,7 +8,7 @@ import {
   CSGModelingUpdateProperty,
   CSGType,
   MeshType,
-} from "../types.ts";
+} from "../../types/types.ts";
 
 import { hc } from "hono/client";
 import { AppRoutesType } from "../../api/app.ts";
@@ -31,6 +31,8 @@ export default function BabylonAppLoader() {
   const [link, setLink] = useState("");
   const [isError, setIsError] = useState(false);
   const [title, setTitle] = useState("");
+  const atatchGizmoId = useRef("");
+  const [uiAtatchGizmoId, setUiAtatchGizmoId] = useState("");
 
   const addObject = () => {
     const newObject = {
@@ -68,7 +70,15 @@ export default function BabylonAppLoader() {
     dialogRef.current?.close();
   };
 
-  const update = (newProperties: CSGModelingUpdateProperty[]) => {
+  const getAttachGizmoId = () => {
+    return atatchGizmoId.current;
+  };
+  const updateAttachGizmoId = (id: string) => {
+    atatchGizmoId.current = id;
+    setUiAtatchGizmoId(id);
+  };
+
+  const updateModelingData = (newProperties: CSGModelingUpdateProperty[]) => {
     newProperties.forEach((newProperty) => {
       const index = objects.current.findIndex(
         (obj) => obj.id === newProperty.id,
@@ -106,6 +116,10 @@ export default function BabylonAppLoader() {
     }
     objects.current = objects.current.filter((obj) => obj.id !== id);
     setUiObjects([...objects.current]);
+
+    if (atatchGizmoId.current === id) {
+      updateAttachGizmoId("");
+    }
   };
 
   function setScreenShot(src: string) {
@@ -121,7 +135,13 @@ export default function BabylonAppLoader() {
       return;
     }
 
-    startBabylonEditApp(canvasElement, update, getModelingData);
+    startBabylonEditApp(
+      canvasElement,
+      updateModelingData,
+      getModelingData,
+      getAttachGizmoId,
+      updateAttachGizmoId,
+    );
     startBabylonResultApp(canvasCSGElement, getModelingData, setScreenShot);
   }, []);
 
@@ -206,9 +226,9 @@ export default function BabylonAppLoader() {
             <button
               class="btn btn-outline btn-info"
               onClick={openDialog}
-              disabled={uiObjects.length == 0}
+              disabled={uiObjects.length === 0}
             >
-              Seve Model
+              Save Model
             </button>
           </div>
           <div class="divider"></div>
@@ -216,26 +236,37 @@ export default function BabylonAppLoader() {
           <div>
             <h3>Log</h3>
 
-            <table class="table table-zebra">
+            <table class="table table-zebra table-xs">
               <thead>
                 <tr>
-                  <th>ID</th>
-
-                  <th>MeshType</th>
-                  <th>CSGType</th>
-                  <th></th>
+                  <th class="w-[210px]">ID</th>
+                  <th class="w-[50px]">MeshType</th>
+                  <th class="w-[70px]">CSGType</th>
+                  <th class="min-w-[70px]"></th>
                 </tr>
               </thead>
               <tbody>
                 {uiObjects.map((obj, i) => (
-                  <tr>
-                    <th>{obj.id}</th>
+                  <tr key={`obj-${i}`}>
+                    <th>
+                      <button
+                        onClick={() =>
+                          updateAttachGizmoId(
+                            obj.id == uiAtatchGizmoId ? "" : obj.id,
+                          )}
+                        class={"btn btn-xs mx-0 " + (obj.id == uiAtatchGizmoId
+                          ? "btn-secondary btn-outline"
+                          : "")}
+                      >
+                        {obj.id}
+                      </button>
+                    </th>
                     <td>{obj.meshType}</td>
-                    <td>
+                    <td class="w-[116px]">
                       {i != 0
                         ? (
                           <select
-                            class="select select-bordered select-sm"
+                            class="select select-bordered select-xs"
                             onChange={(
                               e: JSXInternal.TargetedEvent<
                                 HTMLSelectElement,
@@ -258,9 +289,9 @@ export default function BabylonAppLoader() {
                         )
                         : "-"}
                     </td>
-                    <td>
+                    <td class="px-0">
                       <button
-                        class="btn btn-outline btn-warning btn-sm"
+                        class="btn btn-outline btn-warning btn-xs mx-0 w-[60px] h-[30px]"
                         onClick={() => deleteObject(obj.id)}
                       >
                         Delete Object
@@ -295,7 +326,12 @@ export default function BabylonAppLoader() {
                       isError && "input-error"
                     }`}
                     placeholder="Please decide on a title. "
-                    onChange={(e: any) => setTitle(e?.target?.value)}
+                    onChange={(
+                      e: JSXInternal.TargetedEvent<
+                        HTMLInputElement,
+                        Event
+                      >,
+                    ) => setTitle(e?.target?.value)}
                   />
                   <div class="label">
                     <span class={`label-text-alt ${isError && "text-error"}`}>

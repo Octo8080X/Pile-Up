@@ -1,10 +1,15 @@
 import * as BABYLON from "babylon/core/index.js";
-import { CSGModelingObject, CSGModelingUpdateProperty } from "../types.ts";
+import {
+  CSGModelingObject,
+  CSGModelingUpdateProperty,
+} from "../../types/types.ts";
 
 export function startBabylonEditApp(
   element: HTMLCanvasElement,
-  update: (result: any[]) => void,
+  updateModelingData: (result: CSGModelingUpdateProperty[]) => void,
   getModelingData: () => CSGModelingObject[],
+  getAttachGizmoId: () => string,
+  updateAttachGizmoId: (id: string) => void,
 ) {
   element.id = `renderCanvas${(new Date()).getTime()}`;
   element.style.width = "500px";
@@ -44,24 +49,35 @@ export function startBabylonEditApp(
   gizmoManager.scaleGizmoEnabled = true;
   gizmoManager.boundingBoxGizmoEnabled = true;
 
-  gizmoManager.gizmos.rotationGizmo.updateGizmoRotationToMatchAttachedMesh =
+  gizmoManager.gizmos.rotationGizmo!.updateGizmoRotationToMatchAttachedMesh =
     false;
 
+  let currentAttachGizmoId = "";
+
+  gizmoManager.onAttachedToMeshObservable.add((eventData) => {
+    if (
+      eventData !== null && eventData.id !== undefined &&
+      currentAttachGizmoId !== eventData.id
+    ) {
+      updateAttachGizmoId(eventData.id);
+    }
+  });
+
   let BeforeObjectProperties: CSGModelingUpdateProperty[] = [];
-  const meshs: BABYLON.Mesh[] = [];
+  const meshArr: BABYLON.Mesh[] = [];
 
   setInterval(() => {
     const data = getModelingData();
 
-    const currentMeshIds = meshs.map((mesh) => mesh.id);
+    const currentMeshIds = meshArr.map((mesh) => mesh.id);
 
     const newMeshIds = data.map(({ id }) => id);
 
     const diffMeshIds = currentMeshIds.filter((id) => !newMeshIds.includes(id));
     diffMeshIds.forEach((id) => {
-      const deleteIndex = meshs.findIndex((mesh) => mesh.id === id);
-      meshs[deleteIndex].dispose();
-      meshs.splice(deleteIndex, 1);
+      const deleteIndex = meshArr.findIndex((mesh) => mesh.id === id);
+      meshArr[deleteIndex].dispose();
+      meshArr.splice(deleteIndex, 1);
     });
 
     if (data.length > 0) {
@@ -110,8 +126,8 @@ export function startBabylonEditApp(
             obj.scale.y,
             obj.scale.z,
           );
+          meshArr.push(mesh);
         }
-        meshs.push(mesh);
       });
     }
   }, 500);
@@ -119,7 +135,7 @@ export function startBabylonEditApp(
   let lastUpdate = new Date().getTime();
 
   setInterval(() => {
-    const nowObjectProperties: CSGModelingUpdateProperty[] = meshs.map(
+    const nowObjectProperties: CSGModelingUpdateProperty[] = meshArr.map(
       (mesh) => {
         return {
           id: mesh.id,
@@ -144,9 +160,26 @@ export function startBabylonEditApp(
         JSON.stringify(BeforeObjectProperties) &&
       lastUpdate + 1000 < new Date().getTime()
     ) {
-      update(nowObjectProperties);
+      updateModelingData(nowObjectProperties);
       BeforeObjectProperties = nowObjectProperties;
       lastUpdate = new Date().getTime();
+    }
+
+    const newAttachGizmoId = getAttachGizmoId();
+    if (newAttachGizmoId !== currentAttachGizmoId) {
+      if (newAttachGizmoId === "") {
+        gizmoManager.attachToMesh(null);
+        currentAttachGizmoId = "";
+      } else {
+        const mesh = (meshArr as BABYLON.Mesh[])!.find((mesh) =>
+          mesh.id === getAttachGizmoId()
+        );
+        if (mesh !== undefined) {
+          console.log("attachToMesh", mesh);
+          gizmoManager.attachToMesh(mesh);
+          currentAttachGizmoId = newAttachGizmoId;
+        }
+      }
     }
   }, 100);
 

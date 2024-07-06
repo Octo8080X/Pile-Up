@@ -2,6 +2,7 @@ import { Models } from "../components/Models.tsx";
 import { useEffect, useState } from "preact/hooks";
 import { hc } from "hono/client";
 import { AppRoutesType } from "../api/app.ts";
+import type { JSXInternal } from "preact/src/jsx.d.ts";
 const client = hc<AppRoutesType>("/");
 
 export default function Search({ keyword }: { keyword: string }) {
@@ -45,7 +46,12 @@ export default function Search({ keyword }: { keyword: string }) {
                   class="grow"
                   placeholder="Search"
                   value={q}
-                  onChange={(e: any) => setQ(e?.target?.value)}
+                  onChange={(
+                    e: JSXInternal.TargetedEvent<
+                      HTMLInputElement,
+                      Event
+                    >,
+                  ) => setQ(e?.target?.value)}
                 />
               </label>
             </div>

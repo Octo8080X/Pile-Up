@@ -4,7 +4,7 @@ interface OgpMessage {
   type: "createOgp";
   id: string;
 }
-function createOgpMessage(id: string) {
+function createOgpMessage(id: string): OgpMessage {
   return {
     type: "createOgp",
     id,

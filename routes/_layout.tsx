@@ -1,4 +1,4 @@
-import { defineLayout, FreshContext, RouteContext } from "$fresh/server.ts";
+import { defineLayout, RouteContext } from "$fresh/server.ts";
 import { AppFooter } from "../components/AppFooter.tsx";
 import { AppHeader, AppHeaderProps } from "../components/AppHeader.tsx";
 

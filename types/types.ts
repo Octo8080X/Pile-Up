@@ -27,3 +27,9 @@ export type CSGModelingUpdateProperty = Omit<
   CSGModelingObject,
   MeshType | CSGType
 >;
+
+export type ModelInfo = {
+  title: string;
+  url: string;
+  image: string;
+};

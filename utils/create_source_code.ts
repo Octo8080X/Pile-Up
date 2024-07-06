@@ -1,4 +1,4 @@
-import { CSGModelingObject } from "../islands/types.ts";
+import { CSGModelingObject } from "../types/types.ts";
 
 function createDefineObject(object: CSGModelingObject) {
   let createCode = "";

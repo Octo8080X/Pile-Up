@@ -1,14 +1,9 @@
 import { JSX } from "preact";
+import { ModelInfo } from "../types/types.ts";
 
 export interface AppHeaderProps extends JSX.HTMLAttributes<HTMLButtonElement> {
   showBuildingShortCut?: boolean;
 }
-
-type ModelInfo = {
-  title: string;
-  url: string;
-  image: string;
-};
 
 export function Models({ modelInfos }: { modelInfos: ModelInfo[] }) {
   return (

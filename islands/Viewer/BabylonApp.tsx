@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { startBabylonViewerApp } from "./BabylonViewerApp.ts";
-import { CSGModelingObject } from "../types.ts";
+import { CSGModelingObject } from "../../types/types.ts";
 
 import { hc } from "hono/client";
 import { AppRoutesType } from "../../api/app.ts";

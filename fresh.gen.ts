@@ -21,7 +21,6 @@ import * as $SourceCode from "./islands/SourceCode.tsx";
 import * as $Viewer from "./islands/Viewer.tsx";
 import * as $Viewer_BabylonApp from "./islands/Viewer/BabylonApp.tsx";
 import * as $Viewer_BabylonViewerApp from "./islands/Viewer/BabylonViewerApp.ts";
-import * as $types from "./islands/types.ts";
 import { type Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -47,7 +46,6 @@ const manifest = {
     "./islands/Viewer.tsx": $Viewer,
     "./islands/Viewer/BabylonApp.tsx": $Viewer_BabylonApp,
     "./islands/Viewer/BabylonViewerApp.ts": $Viewer_BabylonViewerApp,
-    "./islands/types.ts": $types,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

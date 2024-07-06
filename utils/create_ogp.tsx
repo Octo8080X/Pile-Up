@@ -1,11 +1,11 @@
 import satori from "npm:satori";
 import * as svg2png from "npm:svg2png-wasm";
 import { optimise } from "@jsquash/oxipng";
+import { getModelInfo, setModelOgpImage } from "./kvstorage.ts";
 
 await svg2png.initialize(
   await fetch("https://unpkg.com/svg2png-wasm/svg2png_wasm_bg.wasm"),
 );
-import { getModelInfo, setModelOgpImage } from "./kvstorage.ts";
 
 const fontBufferArray = new Uint8Array(
   await (
@@ -22,13 +22,13 @@ export async function createOgp(id: string) {
   const info = await getModelInfo(id);
 
   const singleByteChars = info.title.match(/[ -~]/g) || [];
-  console.log(`[INFO] singleByteChars: ${singleByteChars.length}`);
+  console.info(`[INFO] singleByteChars: ${singleByteChars.length}`);
 
   const titleLength = info.title.length * 2 - singleByteChars.length;
 
   const title = titleLength > 10 ? info.title.slice(0, 8) + "..." : info.title;
 
-  console.log(`[INFO] title: ${title}`);
+  console.info(`[INFO] title: ${title}`);
 
   const svg = await satori(
     <div
@@ -128,5 +128,5 @@ export async function createOgp(id: string) {
   const png = await svg2png.svg2png(svg, convert_options);
   const oxipng = await optimise(png, { level: 3 });
 
-  setModelOgpImage(id, oxipng);
+  setModelOgpImage(id, new Uint8Array(oxipng));
 }

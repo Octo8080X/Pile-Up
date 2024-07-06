@@ -1,5 +1,5 @@
 /// <reference lib="deno.unstable" />
-import { CSGModelingObject } from "../islands/types.ts";
+import { CSGModelingObject } from "../types/types.ts";
 import { ulid } from "$std/ulid/mod.ts";
 const MODEL_DATA_KEY = "Modeling_data" as const;
 const MODEL_INFO_KEY = "Modeling_info" as const;

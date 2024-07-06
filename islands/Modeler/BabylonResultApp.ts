@@ -1,5 +1,5 @@
 import * as BABYLON from "babylon/core/index.js";
-import { CSGModelingObject } from "../types.ts";
+import { CSGModelingObject } from "../../types/types.ts";
 
 export function startBabylonResultApp(
   element: HTMLCanvasElement,
@@ -44,7 +44,6 @@ export function startBabylonResultApp(
 
   let islenderingModel = false;
   setInterval(() => {
-    console.log("rendering");
     if (islenderingModel) {
       return;
     }

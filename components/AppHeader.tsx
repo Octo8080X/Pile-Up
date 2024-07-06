@@ -1,6 +1,6 @@
 import { JSX } from "preact";
 
-export interface AppHeaderProps extends JSX.HTMLAttributes<HTMLButtonElement> {
+interface AppHeaderProps extends JSX.HTMLAttributes<HTMLElement> {
   showBuildingShortCut?: boolean;
 }
 
