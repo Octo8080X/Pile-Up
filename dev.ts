@@ -5,8 +5,4 @@ import config from "./fresh.config.ts";
 
 import "$std/dotenv/load.ts";
 
-import { listenQueue } from "./utils/queues.ts";
-
-listenQueue();
-
 await dev(import.meta.url, "./main.ts", config);
