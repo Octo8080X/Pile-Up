@@ -23,13 +23,16 @@ export function startBabylonViewerApp(
   const camera = new BABYLON.ArcRotateCamera(
     "Camera",
     (Math.PI * 60) / 180,
-    (Math.PI * 120) / 180,
-    -30,
+    (Math.PI * 60) / 180,
+    30,
     BABYLON.Vector3.Zero(),
     scene,
   );
   camera.setTarget(BABYLON.Vector3.Zero());
   camera.attachControl(element, true);
+  camera.wheelPrecision = 10;
+  camera.lowerRadiusLimit = 5.0;
+  camera.upperRadiusLimit = 120.0;
 
   new BABYLON.HemisphericLight(
     "light",
