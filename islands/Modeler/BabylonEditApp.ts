@@ -15,6 +15,10 @@ export function startBabylonEditApp(
   element.style.width = "500px";
   element.style.height = "500px";
 
+  element.addEventListener("wheel", function (event) {
+    event.preventDefault();
+  }, { passive: false });
+
   const engine = new BABYLON.Engine(element, true, {
     preserveDrawingBuffer: true,
     stencil: true,

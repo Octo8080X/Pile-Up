@@ -9,6 +9,9 @@ export function startBabylonViewerApp(
   element.id = `renderCanvas${(new Date()).getTime()}`;
   element.style.width = "600px";
   element.style.height = "600px";
+  element.addEventListener("wheel", function (event) {
+    event.preventDefault();
+  }, { passive: false });
 
   const engine = new BABYLON.Engine(element, true, {
     preserveDrawingBuffer: true,
